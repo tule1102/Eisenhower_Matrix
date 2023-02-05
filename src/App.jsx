@@ -13,7 +13,7 @@ function App() {
       e.preventDefault();
       try{
         const res = await axios.post('https://a3c52e37e6.execute-api.us-east-2.amazonaws.com/dev', {item: itemText})
-        setListItems(prev => [...prev, res.data]);
+        // setListItems(prev => [...prev, res.data]);
         setItemText('');
       }catch(err){
         console.log(err);
