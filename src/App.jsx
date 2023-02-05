@@ -79,7 +79,8 @@ function App() {
         {
           listItems.map(item => (
           <div className="todo-item">
-            {
+            <p>in place of n.map is not a function</p>
+            {/* {
               isUpdating === item._id
               ? renderUpdateForm()
               : <>
@@ -87,7 +88,7 @@ function App() {
                   <button className="update-item" onClick={()=>{setIsUpdating(item._id)}}>Update</button>
                   <button className="delete-item" onClick={()=>{deleteItem(item._id)}}>Delete</button>
                 </>
-            }
+            } */}
           </div>
           ))
         }
