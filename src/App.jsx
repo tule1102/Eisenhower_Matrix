@@ -24,7 +24,8 @@ function App() {
     useEffect(()=>{
       const getItemsList = async () => {
         try{
-          const res = await axios.get('http://localhost:5500/api/items')
+          // const res = await axios.get('http://localhost:5500/api/items')
+          const res = await axios.get('arn:aws:lambda:us-east-2:754222213041:function:getAllTodos')
           setListItems(res.data);
           console.log('render')
         }catch(err){
