@@ -76,11 +76,12 @@ function App() {
         <button type="submit">Add</button>
       </form>
       <div className="todo-listItems">
-        {
+      <p>in place of n.map is not a function</p>
+
+        {/* {
           listItems.map(item => (
           <div className="todo-item">
-            <p>in place of n.map is not a function</p>
-            {/* {
+            {
               isUpdating === item._id
               ? renderUpdateForm()
               : <>
@@ -88,10 +89,10 @@ function App() {
                   <button className="update-item" onClick={()=>{setIsUpdating(item._id)}}>Update</button>
                   <button className="delete-item" onClick={()=>{deleteItem(item._id)}}>Delete</button>
                 </>
-            } */}
+            }
           </div>
           ))
-        }
+        } */}
       </div>
     </div>
   )
