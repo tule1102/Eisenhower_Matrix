@@ -12,7 +12,7 @@ function App() {
     const addItem = async (e) => {
       e.preventDefault();
       try{
-        const res = await axios.post('https://pecwn0f2d1.execute-api.us-east-2.amazonaws.com/dev/items', {item: itemText})
+        const res = await axios.post('https://pecwn0f2d1.execute-api.us-east-2.amazonaws.com/dev/items', {id: "456" ,item: itemText})
         // setListItems(prev => [...prev, res.data]);
         setItemText('');
       }catch(err){
