@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import './App.css';
+// import { uuid } from 'uuidv4';
+import { v4 as uuidv4 } from 'uuid';
+
 
 function App() {
   const [itemText, setItemText] = useState('');
@@ -12,8 +15,10 @@ function App() {
     const addItem = async (e) => {
       e.preventDefault();
       try{
-        const res = await axios.put('https://pecwn0f2d1.execute-api.us-east-2.amazonaws.com/dev/items', {id: "456" ,item: itemText})
-        // setListItems(prev => [...prev, res.data]);
+        const res = await axios.put('https://pecwn0f2d1.execute-api.us-east-2.amazonaws.com/dev/items', {id: uuidv4(), item: itemText})
+        console.log("Before: " + JSON.stringify(listItems))
+        setListItems(prev => [...prev, res.data]);
+        console.log("after: " + JSON.stringify(listItems))
         setItemText('');
       }catch(err){
         console.log(err);
@@ -24,10 +29,8 @@ function App() {
     useEffect(()=>{
       const getItemsList = async () => {
         try{
-          // const res = await axios.get('http://localhost:5500/api/items')
-          const res = await axios.get('https://a3c52e37e6.execute-api.us-east-2.amazonaws.com/dev')
-          setListItems(res.data);
-          console.log('render')
+          const res = await axios.get('https://pecwn0f2d1.execute-api.us-east-2.amazonaws.com/dev/items')
+          setListItems(res.data.Items);
         }catch(err){
           console.log(err);
         }
@@ -38,21 +41,21 @@ function App() {
     // Delete item when click on delete
     const deleteItem = async (id) => {
       try{
-        const res = await axios.delete(`http://localhost:5500/api/item/${id}`)
-        const newListItems = listItems.filter(item=> item._id !== id);
+        const res = await axios.delete(`https://pecwn0f2d1.execute-api.us-east-2.amazonaws.com/dev/items/${id}`)
+        const newListItems = listItems.filter(item => item.id !== id);
         setListItems(newListItems);
       }catch(err){
         console.log(err);
       }
     }
-  
+
     //Update item
     const updateItem = async (e) => {
       e.preventDefault()
       try{
         const res = await axios.put(`http://localhost:5500/api/item/${isUpdating}`, {item: updateItemText})
         console.log(res.data)
-        const updatedItemIndex = listItems.findIndex(item => item._id === isUpdating);
+        const updatedItemIndex = listItems.findIndex(item => item.id === isUpdating);
         const updatedItem = listItems[updatedItemIndex].item = updateItemText;
         setUpdateItemText('');
         setIsUpdating('');
@@ -76,23 +79,22 @@ function App() {
         <button type="submit">Add</button>
       </form>
       <div className="todo-listItems">
-      <p>in place of n.map is not a function</p>
-
-        {/* {
+      {/* <p>in place of n.map is not a function</p> */}
+        {
           listItems.map(item => (
           <div className="todo-item">
             {
-              isUpdating === item._id
+              isUpdating === item.id
               ? renderUpdateForm()
               : <>
                   <p className="item-content">{item.item}</p>
-                  <button className="update-item" onClick={()=>{setIsUpdating(item._id)}}>Update</button>
-                  <button className="delete-item" onClick={()=>{deleteItem(item._id)}}>Delete</button>
+                  <button className="update-item" onClick={()=>{setIsUpdating(item.id)}}>Update</button>
+                  <button className="delete-item" onClick={()=>{deleteItem(item.id)}}>Delete</button>
                 </>
             }
           </div>
           ))
-        } */}
+        }
       </div>
     </div>
   )
